@@ -91,8 +91,9 @@
           <li>
             <a class="cd-faq-trigger" href="#0">ZIL and SLOG</a>
             <div class="cd-faq-content">
-              <p>All writes to a ZFS zpool are first written to the <span style="font-style: italic;">ZFS Intent Log</span> (ZIL) to allow the process writing the data to continue sooner. All data in the ZIL is later written out formally to the zpool.</p>
-              <p>In high-performance use-cases, a <span style="font-style: italic;">Separate ZFS Intent Log</span>(SLOG) can be provisioned to the zpool using an SSD or NVMe device to allow very fast interactive writes.</p>
+              <p>All synchronous* writes to a ZFS zpool are first written to the <span style="font-style: italic;">ZFS Intent Log</span> (ZIL) to allow the process writing the data to continue sooner. All data in the ZIL is later written out formally to the zpool.</p>
+              <p>In high-performance use-cases, a <span style="font-style: italic;">Separate ZFS Intent Log</span> (SLOG) can be provisioned to the zpool using an SSD or NVMe device to allow very fast interactive writes.</p>
+              <p><span style="font-style: italic;">* Synchronous writes are where the writing process waits for the write to complete before continuing. Common examples include database applications and virtualization platforms.</span></p>
             </div> <!-- cd-faq-content -->
           </li>
 

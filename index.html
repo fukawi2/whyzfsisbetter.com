@@ -1,0 +1,135 @@
+<!doctype html>
+<html lang="en" class="no-js">
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href='http://fonts.googleapis.com/css?family=Open+Sans:400,300,600,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/reset.css"> <!-- CSS reset -->
+    <link rel="stylesheet" href="css/style.css"> <!-- Resource style -->
+    <script src="js/modernizr.js"></script> <!-- Modernizr -->
+    <title>Why ZFS is Better | whyzfsisbetter.com</title>
+  </head>
+  <body>
+    <header>
+      <h1>Why ZFS is Better.</h1>
+    </header>
+    <section class="cd-faq">
+      <ul class="cd-faq-categories">
+        <li><a class="selected" href="#general">General</a></li>
+        <li><a href="#dataintegrity">Data Integrity</a></li>
+        <li><a href="#cow">Copy-on-Write</a></li>
+        <li><a href="#caching">Caching</a></li>
+        <li><a href="#getstarted">Get Started</a></li>
+      </ul> <!-- cd-faq-categories -->
+
+      <div class="cd-faq-items">
+
+        <!-- General -->
+        <ul id="general" class="cd-faq-group">
+          <li class="cd-faq-title"><h2>General</h2></li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">Pooled Data Storage</a>
+            <div class="cd-faq-content">
+              <p>ZFS combines all available storage devices and pools them together as a "zpool". Additional storage can be added as required. Inside the zpool are 1 or more "vdevs" which can be simply a single drive, or multiple drives in a stripe, mirror, or RAID-style configuration for data protection and/or performance.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+
+          <li>
+            <a class="cd-faq-trigger" href="#0">Practically Limitless Capacity</a>
+            <div class="cd-faq-content">
+              <p>ZFS is a 128-bit file system; the theoretical limit of which is 256 quadrillion zettabytes (a zettabyte is 1 billion terabytes). Practically speaking, this is larger than any storage system that can possibly be built in the foreseeable future.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+
+        </ul>
+
+        <!-- DATA INTEGRITY -->
+        <ul id="dataintegrity" class="cd-faq-group">
+          <li class="cd-faq-title"><h2>Data Integrity</h2></li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">Checksums catch bitrot and I/O errors</a>
+            <div class="cd-faq-content">
+              <p>ZFS stores a 256-bit checksum when it writes data to disk, and checksums the metadata itself. ZFS will verify the integrity of all data using its checksums when reading data from disk.</p>
+              <p>When the pool has sufficient redundancy (e.g. mirrored or RAID-type vdevs), ZFS can repair any corrupt data it detects. Any data corruption is logged, assiting the administrator to identify any defects in memory or other hardware.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+
+          <li>
+            <a class="cd-faq-trigger" href="#0">Data Scrubbing</a>
+            <div class="cd-faq-content">
+              <p>Optionally, the administrator can "scrub" a pool to force ZFS to read and verify every block of data on disk to detect any silent data corruption in data that hasn't been accessed frequently. Unlike traditional RAID arrays, ZFS will only verify the parts of the storage system where data is stored., making the scrub process faster.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+        </ul>
+
+        <!-- COPY-ON-WRITE -->
+        <ul id="cow" class="cd-faq-group">
+          <li class="cd-faq-title"><h2>Copy-on-Write</h2></li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">Atomic transactions means no fsck</a>
+            <div class="cd-faq-content">
+              <p>With <span style="font-style: italic;">Copy-on-Write</span> (CoW), data is always written to a new block and checksums calculated before pointers to the data are changed. All writes are transactional, so either everything or nothing is written to disk, avoiding the need to fsck or replay journals in the event of unexpected reboot.<p>
+            </div> <!-- cd-faq-content -->
+          </li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">Snapshots are Free</a>
+            <div class="cd-faq-content">
+              <p>Because of <span style="font-style: italic;">Copy-on-Write</span> (CoW) method of writing data, the old data is left intact on disk. This allows for snapshots without a performance impact like other systems.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+        </ul> <!-- cd-faq-group -->
+
+        <!-- CACHING -->
+        <ul id="caching" class="cd-faq-group">
+          <li class="cd-faq-title"><h2>Caching</h2></li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">ARC and L2ARC</a>
+            <div class="cd-faq-content">
+              <p>ZFS agressively caches data using RAM in <span style="font-style: italic;">Most Recently Used</span> (MRU) and <span style="font-style: italic;">Most Frequently Used</span> (MFU) tables. Optionally, a L2ARC can be added to the pool using a fast SSD or NVMe device to expand the capacity of these caches.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">ZIL and SLOG</a>
+            <div class="cd-faq-content">
+              <p>All writes to a ZFS zpool are first written to the <span style="font-style: italic;">ZFS Intent Log</span> (ZIL) to allow the process writing the data to continue sooner. All data in the ZIL is later written out formally to the zpool.</p>
+              <p>In high-performance use-cases, a <span style="font-style: italic;">Separate ZFS Intent Log</span>(SLOG) can be provisioned to the zpool using an SSD or NVMe device to allow very fast interactive writes.</p>
+            </div> <!-- cd-faq-content -->
+          </li>
+
+        </ul> <!-- cd-faq-group -->
+
+        <!-- GETTING STARTED -->
+        <ul id="getstarted" class="cd-faq-group">
+          <li class="cd-faq-title"><h2>Getting Started</h2></li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">FreeNAS</a>
+            <div class="cd-faq-content">
+              <p>A turnkey storage appliance platform, free for anyone and everyone: <a href="http://www.freenas.org/">http://www.freenas.org/</a></p>
+            </div> <!-- cd-faq-content -->
+          </li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">The BSD Operating Systems</a>
+            <div class="cd-faq-content">
+              <p>
+                <a href="https://www.freebsd.org/"><img src='freebsd_logo.png' alt='FreeBSD' style='width: 150px; padding-right: 50px;'></a>
+                <a href="https://www.netbsd.org/"><img src='netbsd_logo.png' alt='NetBSD' style='width: 150px; padding-right: 50px;'></a>
+                <a href="https://www.openbsd.org/"><img src='openbsd_logo.png' alt='OpenBSD' style='width: 150px; padding-right: 50px;'></a>
+              </p>
+            </div> <!-- cd-faq-content -->
+          </li>
+          <li>
+            <a class="cd-faq-trigger" href="#0">ZFS on Linux</a>
+            <div class="cd-faq-content">
+              <p><a href="http://www.ubuntu.org">Ubuntu</a> or <a href="http://zfsonlinux.org/">ZoL</a></p>
+            </div> <!-- cd-faq-content -->
+          </li>
+        </ul> <!-- cd-faq-group -->
+
+      </div> <!-- cd-faq-items -->
+      <a href="#0" class="cd-close-panel">Close</a>
+    </section> <!-- cd-faq -->
+    <script src="js/jquery-2.1.1.js"></script>
+    <script src="js/jquery.mobile.custom.min.js"></script>
+    <script src="js/main.js"></script> <!-- Resource jQuery -->
+  </body>
+</html>
